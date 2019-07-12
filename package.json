@@ -7,7 +7,8 @@
     "start": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner",
-    "sonar": "sonar-scanner -Dsonar.projectKey=test-connect-sonar -Dsonar.sources=."
+    "sonar": "sonar-scanner -Dsonar.projectKey=test-connect-sonar -Dsonar.sources=.",
+    "tag":"./tag"
   },
   "author": "",
   "license": "ISC",
