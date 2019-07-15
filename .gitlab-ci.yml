@@ -9,7 +9,9 @@ sonarqube:
     SONAR_ANALYSIS_MODE: issues
     SONAR_GITLAB_PROJECT_ID: git@gitlab.com:topchotipat/test-connect-sonar.git
   script:
-    - gitlab-sonar-scanner -Dsonar.gitlab.commit_sha=$CI_COMMIT_SHA -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME
+    - gitlab-sonar-scanner -Dsonar.projectKey=test-connect-sonar -Dsonar.sources=. -Dsonar
+  only:
+    - merge_requests
 sonarqube-reports:
   stage: analysis
   image: ciricihq/gitlab-sonar-scanner
@@ -17,4 +19,6 @@ sonarqube-reports:
     SONAR_URL: "http://34.87.111.163:9000"
     SONAR_ANALYSIS_MODE: publish
   script:
-  - gitlab-sonar-scanner
+    - gitlab-sonar-scanner
+  only:
+    - merge_requests
