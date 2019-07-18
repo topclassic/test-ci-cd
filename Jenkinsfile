@@ -36,10 +36,14 @@
 // }
 node {
     stage('sonarqube'){
-        echo 'Pulling...' + env.BRANCH_NAME
+        when { branch 'master' }
+        echo 'Master...'
         def SONAR_SCANNER  = tool name: 'sonar-scanner'
         withSonarQubeEnv('sonar') {
             sh "${SONAR_SCANNER}/bin/sonar-scanner -e -Dsonar.projectName=test-ci-cd -Dsonar.projectKey=test -Dsonar.sources=."
         }
+        echo 'End Master...'
+        when { branch 'UAT' }
+        echo 'UAT...'
     }
 }
