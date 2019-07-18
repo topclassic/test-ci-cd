@@ -12,9 +12,6 @@ pipeline {
             }
         }
         stage('Sonarqube') {
-            agent {
-                docker { image 'node:9' }
-            }
             environment {
                 SONAR_SCANNER  = tool name: 'sonar-scanner'
             }
