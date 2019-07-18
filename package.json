@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner",
     "sonar": "sonar-scanner -Dsonar.projectKey=test-connect-sonar -Dsonar.sources=.",
     "tag": "./tag.sh"
@@ -17,6 +17,14 @@
     "sonar-scanner": "^3.1.0"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "jest": "^24.8.0"
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "statements": 90
+      }
+    }
   }
 }
