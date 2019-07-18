@@ -8,12 +8,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner",
     "sonar": "sonar-scanner -Dsonar.projectKey=test-connect-sonar -Dsonar.sources=.",
-    "tag":"./tag"
+    "tag": "./tag"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^1.19.1",
     "sonar-scanner": "^3.1.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }
