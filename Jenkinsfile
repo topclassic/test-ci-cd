@@ -12,10 +12,12 @@ pipeline {
             }
         }
         stage('Sonarqube') {
-            def sonarqubeScannerHome = tool name: 'sonar-scanner'
+            environment {
+                SONAR_SCANNER  = tool name: 'sonar-scanner'
+            }
             steps {
                 withSonarQubeEnv('sonar') {
-                    sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.projectName=test-ci-cd"
+                    sh "${SONAR_SCANNER}/bin/sonar-scanner -e -Dsonar.projectName=test-ci-cd"
                 }
             }
         }
