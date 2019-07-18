@@ -1,0 +1,24 @@
+stages:
+  - analysis
+
+sonarqube:
+  stage: analysis
+  image: ciricihq/gitlab-sonar-scanner
+  variables:
+    SONAR_URL: "http://34.87.111.163:9000"
+    SONAR_ANALYSIS_MODE: issues
+    SONAR_GITLAB_PROJECT_ID: git@gitlab.com:topchotipat/test-connect-sonar.git
+  script:
+    - gitlab-sonar-scanner -Dsonar.projectKey=test-connect-sonar -Dsonar.sources=. -Dsonar
+  only:
+    - merge_requests
+sonarqube-reports:
+  stage: analysis
+  image: ciricihq/gitlab-sonar-scanner
+  variables:
+    SONAR_URL: "http://34.87.111.163:9000"
+    SONAR_ANALYSIS_MODE: publish
+  script:
+    - gitlab-sonar-scanner
+  only:
+    - merge_requests
