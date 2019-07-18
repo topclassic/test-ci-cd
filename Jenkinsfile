@@ -17,7 +17,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('sonar') {
-                    sh "${SONAR_SCANNER}/bin/sonar-scanner -e -Dsonar.projectName=test-ci-cd"
+                    sh "${SONAR_SCANNER}/bin/sonar-scanner -e -Dsonar.projectName=test-ci-cd -Dsonar.projectKey=test -Dsonar.sources=."
                 }
             }
         }
