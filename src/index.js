@@ -11,6 +11,7 @@ var server = app.listen(3000, function() {
   let a = ''
   let b = ''
   let c = ''
+  let g = ''
 
   console.log("Example app ", port);
 });
