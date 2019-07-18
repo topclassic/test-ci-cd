@@ -19,7 +19,9 @@ pipeline {
                 withSonarQubeEnv('sonar') {
                     sh "${SONAR_SCANNER}/bin/sonar-scanner -e -Dsonar.projectName=test-ci-cd -Dsonar.projectKey=test -Dsonar.sources=."
                 }
-                waitForQualityGate abortPipeline: true          
+                timeout(time: 60, unit: 'SECONDS') {
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
         stage('Deploy') {
