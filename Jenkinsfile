@@ -1,27 +1,35 @@
 pipeline {
-    agent none
+    agent any
     stages {
-        stage('prep') {
-            git url: 'https://github.com/topclassic/test-ci-cd.git'
-            sh 'git checkout UAT'
-        }
-        stage('Build') {
+        stage('prep'){
             steps {
-                echo 'Building..'
-                withCredentials([usernamePassword(credentialsId: 'hello-kb', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                    // the code in here can access $pass and $user
-                }
-            }
+                git url: 'https://github.com/topclassic/test-ci-cd.git'
+                sh 'git checkout UAT'
+                sh 'git pull'
+            } 
         }
         stage('Test') {
             agent {
                 docker { image 'node:9.0' }
             }
             steps {
-                 sh 'npm install'
+                sh 'npm install'
+                sh 'npm test'
             }
         }
+        stage('Build'){
+            steps{
+                script {
+                    docker.withRegistry('https://registry.gitlab.com','DOCKER_REGISTRY') {
+                        docker.build("registry.gitlab.com/topchotipat/test-connect-sonar").push('UAT')
+                    }
+                }   
+            }
+        }
+    }
+}
         // stage('Sonarqube') {
+        // when { tag "release-*" }
         //     environment {
         //         SONAR_SCANNER  = tool name: 'sonar-scanner'
         //     }
@@ -37,29 +45,3 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
-    }
-}
-// node {
-//     def myGradleContainer = docker.image('node:9.0')
-//     myGradleContainer.pull()
-//     stage('prep') {
-//         git url: 'https://github.com/topclassic/test-ci-cd.git'
-//         sh "${myGradleContainer} -v"
-//     }
-//     stage('sonarqube'){
-//         echo 'Master...'
-//         def SONAR_SCANNER  = tool name: 'sonar-scanner'
-//         withSonarQubeEnv('sonar') {
-//             sh "${SONAR_SCANNER}/bin/sonar-scanner -e -Dsonar.projectName=test-ci-cd -Dsonar.projectKey=test -Dsonar.sources=."
-//         }
-//         echo 'End Master...'
-//     }
-//     stage('sonar uat'){
-//         echo 'UAT...'
-//     }
-// }
