@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    environment {
-        branch = scm.branches[0].name
-    }
     stages {
         stage('Test') {
             agent {
