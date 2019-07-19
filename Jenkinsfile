@@ -8,6 +8,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
+                withCredentials([usernamePassword(credentialsId: 'hello-kb', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                    // the code in here can access $pass and $user
+                }
             }
         }
         stage('Test') {
