@@ -1,11 +1,15 @@
 pipeline {
     agent any
+    environment {
+        branch = scm.branches[0].name
+    }
     stages {
         stage('Test') {
             agent {
                 docker { image 'node:9.0' }
             }
             steps {
+                sh 'echo $branch'
                 sh 'npm install'
                 sh 'npm test'
             }
