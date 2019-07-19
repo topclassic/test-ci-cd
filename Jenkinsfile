@@ -1,13 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('prep'){
-            steps {
-                git url: 'https://github.com/topclassic/test-ci-cd.git'
-                sh 'git checkout UAT'
-                sh 'git pull'
-            } 
-        }
         stage('Test') {
             agent {
                 docker { image 'node:9.0' }
