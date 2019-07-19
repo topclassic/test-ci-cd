@@ -9,7 +9,7 @@ describe("Test Calculator", function() {
 
   describe("functions plus", function() {
     it("1 + 1 should be 2", function() {
-      expect(calculate.plus(1, 1)).toBe(2);
+      expect(calculate.plus(1, 1)).toBe(23);
     });
   });
 

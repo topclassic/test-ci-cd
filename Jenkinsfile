@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('prep') {
             git url: 'https://github.com/topclassic/test-ci-cd.git'
+            sh 'git checkout UAT'
         }
         stage('Build') {
             steps {
